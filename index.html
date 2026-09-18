@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fut de Sexta — sorteio dos times</title>
+<meta name="description" content="Marque quem vem, remova quem furou e sorteie os times em um toque.">
+<meta name="theme-color" content="#0C1315">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230C1315'/><circle cx='50' cy='50' r='26' fill='none' stroke='%23F2F5F4' stroke-width='6'/><path d='M50 6v88' stroke='%23F2F5F4' stroke-width='6'/></svg>">
+</head>
+<body>
+
+<header class="cabecalho">
+  <button class="voltar" type="button" id="btn-voltar" hidden aria-label="Voltar para a lista">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+
+  <p class="marca">
+    <span class="marca__campo" aria-hidden="true"></span>
+    Fut de sexta
+  </p>
+
+  <p class="contagem" id="contagem">
+    <b id="quantos">0</b><span class="contagem__barra" aria-hidden="true">/</span><span id="total">0</span>
+  </p>
+</header>
+
+<main>
+
+  <!-- ============ TELA 1 · LISTA ============ -->
+  <section class="tela tela--ativa" id="tela-lista">
+
+    <div class="abertura">
+      <h1 class="display">Quem vai<br>jogar hoje</h1>
+      <p class="abertura__texto">Toque no nome para tirar quem furou. Marque em <span class="grifo">Gol</span> quem pega de goleiro. O × apaga da lista.</p>
+    </div>
+
+    <div class="ferramentas">
+      <div class="ferramentas__grupo">
+        <button class="pilula" type="button" data-acao="todos">Todos vêm</button>
+        <button class="pilula" type="button" data-acao="ninguem">Ninguém vem</button>
+        <button class="pilula pilula--apagada" type="button" data-acao="restaurar">Lista original</button>
+      </div>
+    </div>
+
+    <ul class="lista" id="lista"></ul>
+
+    <form class="incluir" id="form-incluir" autocomplete="off">
+      <label class="oculto" for="novo-nome">Nome do jogador</label>
+      <input id="novo-nome" name="nome" type="text" placeholder="Incluir jogador" maxlength="22" required
+             enterkeyhint="done" autocapitalize="words" spellcheck="false">
+      <button class="incluir__botao" type="submit" aria-label="Incluir jogador">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+    </form>
+
+    <div class="formato">
+      <p class="formato__titulo">Jogadores por time <span class="formato__nota">contando o goleiro</span></p>
+      <div class="opcoes" id="por-time" role="group" aria-label="Jogadores por time">
+        <button type="button" data-valor="4">4</button>
+        <button type="button" data-valor="5">5</button>
+        <button type="button" data-valor="6">6</button>
+        <button type="button" data-valor="7">7</button>
+      </div>
+      <p class="formato__previsao" id="previsao"></p>
+    </div>
+
+  </section>
+
+  <!-- ============ TELA 2 · TIMES ============ -->
+  <section class="tela" id="tela-times" hidden>
+    <div class="abertura abertura--times">
+      <h2 class="display display--menor">Times<br>de hoje</h2>
+      <p class="abertura__texto" id="carimbo"></p>
+    </div>
+
+    <div class="times" id="times" aria-live="polite"></div>
+
+    <div class="envio">
+      <button class="pilula" type="button" id="btn-copiar">Copiar escalação</button>
+      <button class="pilula pilula--cheia" type="button" id="btn-whats">Mandar no grupo</button>
+    </div>
+  </section>
+
+</main>
+
+<div class="rodape">
+  <button class="acao" type="button" id="btn-sortear">
+    <span id="acao-texto">Sortear times</span>
+  </button>
+</div>
+
+<div class="recado" id="recado" role="status" aria-live="polite">
+  <span id="recado-texto"></span>
+  <button type="button" id="recado-acao" hidden>Desfazer</button>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
